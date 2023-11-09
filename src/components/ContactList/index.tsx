@@ -118,70 +118,68 @@ const ContactsList = ({
         </h2>
       ) : (
         <main css={containerStyle}>
-          {favoriteContacts?.length > 0 && (
-            <section
-              css={{
-                padding: "12px 0px",
-                width: "100%",
-              }}
-            >
-              {!loading && (
-                <h2
-                  css={{
-                    padding: "0px 20px",
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Favorite
-                </h2>
-              )}
-
-              <ul
+          <section
+            css={{
+              padding: "12px 0px",
+              width: "100%",
+            }}
+          >
+            {!loading && favoriteContacts?.length > 0 ? (
+              <h2
                 css={{
-                  listStyleType: "none",
-                  display: "flex",
-                  gap: "12px",
-                  width: "100%",
-                  overflowY: "auto",
-                  padding: "12px 20px",
-                  "&::-webkit-scrollbar": {
-                    width: 0,
-                    height: 0,
-                  },
+                  padding: "0px 20px",
+                  fontSize: "0.875rem",
+                  fontWeight: 500,
+                  textTransform: "uppercase",
                 }}
               >
-                {loadingAllQuery
-                  ? Array(7)
-                      .fill(0)
-                      .map((_, index) => (
-                        <li css={{ width: "48" }} key={index}>
-                          <ContentLoader
-                            speed={2}
-                            width={48}
-                            height={48}
-                            backgroundColor="#f3f3f3"
-                            foregroundColor="#ecebeb"
-                          >
-                            <circle cx="24" cy="24" r="24" />
-                          </ContentLoader>
-                        </li>
-                      ))
-                  : favoriteContacts.map((contact, index) => (
-                      <li key={index}>
-                        <ContactCardFavorite {...contact} />
+                Favorite
+              </h2>
+            ) : null}
+
+            <ul
+              css={{
+                listStyleType: "none",
+                display: "flex",
+                gap: "12px",
+                width: "100%",
+                overflowY: "auto",
+                padding: "12px 20px",
+                "&::-webkit-scrollbar": {
+                  width: 0,
+                  height: 0,
+                },
+              }}
+            >
+              {loadingAllQuery
+                ? Array(7)
+                    .fill(0)
+                    .map((_, index) => (
+                      <li css={{ width: "48" }} key={index}>
+                        <ContentLoader
+                          speed={2}
+                          width={48}
+                          height={48}
+                          backgroundColor="#f3f3f3"
+                          foregroundColor="#ecebeb"
+                        >
+                          <circle cx="24" cy="24" r="24" />
+                        </ContentLoader>
                       </li>
-                    ))}
-              </ul>
-            </section>
-          )}
+                    ))
+                : favoriteContacts.map((contact, index) => (
+                    <li key={index}>
+                      <ContactCardFavorite {...contact} />
+                    </li>
+                  ))}
+            </ul>
+          </section>
 
           <section
             css={{
               padding: "12px 20px",
               width: "100%",
-              marginBottom: "auto"
+              marginBottom: "auto",
             }}
           >
             {!loading && (
