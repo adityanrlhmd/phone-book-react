@@ -58,43 +58,52 @@ textarea {
 }
 
 .loader {
-  width: 48px;
-  height: 48px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  display: flex;
+  display: block;
+  margin: 15px auto;
   position: relative;
-  animation: rotate 1s linear infinite;
-}
-.loader::before {
-  content: "";
+  color: #000;
+  left: -100px;
   box-sizing: border-box;
-  position: absolute;
-  inset: 0px;
-  border-radius: 50%;
-  border: 5px solid #fff;
-  animation: prixClipFix 2s linear infinite;
+  animation: shadowRolling 2s linear infinite;
 }
 
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes prixClipFix {
+@keyframes shadowRolling {
   0% {
-    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+    box-shadow: 0px 0 rgba(0, 0, 0, 0), 0px 0 rgba(0, 0, 0, 0),
+      0px 0 rgba(0, 0, 0, 0), 0px 0 rgba(0, 0, 0, 0);
+  }
+  12% {
+    box-shadow: 100px 0 black, 0px 0 rgba(0, 0, 0, 0), 0px 0 rgba(0, 0, 0, 0),
+      0px 0 rgba(0, 0, 0, 0);
   }
   25% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+    box-shadow: 110px 0 black, 100px 0 black, 0px 0 rgba(0, 0, 0, 0),
+      0px 0 rgba(0, 0, 0, 0);
+  }
+  36% {
+    box-shadow: 120px 0 black, 110px 0 black, 100px 0 black,
+      0px 0 rgba(0, 0, 0, 0);
   }
   50% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+    box-shadow: 130px 0 black, 120px 0 black, 110px 0 black, 100px 0 black;
+  }
+  62% {
+    box-shadow: 200px 0 rgba(0, 0, 0, 0), 130px 0 black, 120px 0 black,
+      110px 0 black;
   }
   75% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+    box-shadow: 200px 0 rgba(0, 0, 0, 0), 200px 0 rgba(0, 0, 0, 0),
+      130px 0 black, 120px 0 black;
+  }
+  87% {
+    box-shadow: 200px 0 rgba(0, 0, 0, 0), 200px 0 rgba(0, 0, 0, 0),
+      200px 0 rgba(0, 0, 0, 0), 130px 0 black;
   }
   100% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+    box-shadow: 200px 0 rgba(0, 0, 0, 0), 200px 0 rgba(0, 0, 0, 0),
+      200px 0 rgba(0, 0, 0, 0), 200px 0 rgba(0, 0, 0, 0);
   }
 }

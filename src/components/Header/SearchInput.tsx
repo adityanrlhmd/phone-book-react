@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { MdClose, MdOutlineSearch } from "react-icons/md";
+import { useMatch, useNavigate, useSearchParams } from "react-router-dom";
 
 const formStyle = css`
   background-color: #f1f3f4;
@@ -23,11 +24,30 @@ const formStyle = css`
 `;
 
 const SearchInput = () => {
+  const navigate = useNavigate();
+  const isSearchPage = useMatch({ path: "/search" });
   const [searchString, setSearchString] = useState("");
+  const [, setSearchParams] = useSearchParams();
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (isSearchPage) {
+      setSearchParams((params) => {
+        params.set("q", searchString);
+        return params;
+      });
+    } else {
+      navigate(`/search?q=${searchString}`);
+    }
+  }
 
   return (
-    <form css={formStyle} onSubmit={(e) => e.preventDefault()}>
-      <MdOutlineSearch className="shrink-0" color="#5f6368" size={22} />
+    <form css={formStyle} onSubmit={handleSubmit}>
+      <button type="submit" css={{ display: "flex", alignItems: "center" }}>
+        <MdOutlineSearch color="#5f6368" size={24} />
+      </button>
+
       <input
         value={searchString}
         onChange={(e) => setSearchString(e.target.value)}

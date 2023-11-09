@@ -1,15 +1,11 @@
-import {
-  ApolloClient,
-  ApolloProvider,
-  InMemoryCache
-} from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
 const client = new ApolloClient({
-  uri: "https://wpe-hiring.tokopedia.net/graphql",
+  uri: import.meta.env.VITE_API_URL,
   cache: new InMemoryCache(),
 });
 

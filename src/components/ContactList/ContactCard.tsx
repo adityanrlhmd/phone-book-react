@@ -19,18 +19,17 @@ const ContactCard = ({
       css={css`
         cursor: pointer;
         position: relative;
-        padding: 25px 20px;
+        padding: 20px;
         display: flex;
         align-items: center;
         gap: 12px;
         width: 100%;
         border-radius: 10px;
         border: 1px solid #E0E0E0;
+        transition: all 0.5s ease-in-out;
         &:hover {
-          background: #f5f5f5;
-          .action-btn {
-            visibility: visible;
-          }
+          background-color: white;
+          box-shadow: -1px 1px 4px 1px rgba(0, 0, 0, 0.2);
         }
       `}
     >

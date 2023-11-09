@@ -60,7 +60,11 @@ export default function ContactView({
     ContactInterface[]
   >("favoriteContacts", []);
 
-  const { data: dataQuery, loading, refetch: refetchContactDetail } = useQuery(GET_CONTACT_DETAIL, {
+  const {
+    data: dataQuery,
+    loading,
+    refetch: refetchContactDetail,
+  } = useQuery(GET_CONTACT_DETAIL, {
     variables: {
       id: parseInt(params.id!),
     },
@@ -223,6 +227,7 @@ export default function ContactView({
                   width: "100%",
                   maxWidth: 200,
                   gap: 4,
+                  whiteSpace: "nowrap",
                 }}
               >
                 <span
@@ -251,6 +256,7 @@ export default function ContactView({
                   fontSize: "0.875rem",
                   width: "100%",
                   maxWidth: 200,
+                  whiteSpace: "nowrap",
                 }}
               >
                 <MdOutlineModeEditOutline
@@ -289,7 +295,13 @@ export default function ContactView({
         </section>
 
         <Outlet
-          context={{ dataContact, loading, refetchContactDetail } satisfies ContextContactType}
+          context={
+            {
+              dataContact,
+              loading,
+              refetchContactDetail,
+            } satisfies ContextContactType
+          }
         />
       </main>
     </div>

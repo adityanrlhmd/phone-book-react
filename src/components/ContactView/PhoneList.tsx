@@ -25,32 +25,43 @@ const listStyle = css`
 `;
 
 const PhoneList = () => {
-  const { dataContact, loading, refetchContactDetail } = useOutletContext<ContextContactType>();
+  const { dataContact, loading, refetchContactDetail } =
+    useOutletContext<ContextContactType>();
 
   return (
     <>
       <section css={{ padding: "2rem 0px", width: "100%" }}>
         {loading ? (
-          <ContentLoader
-            speed={2}
-            width={'100%'}
-            height={160}
-            backgroundColor="#f3f3f3"
-            foregroundColor="#ecebeb"
-          >
-            <rect x="50" y="6" rx="4" ry="4" width="330" height="34" />
-            <rect x="10" y="6" rx="4" ry="4" width="35" height="34" />
-            <rect x="50" y="55" rx="4" ry="4" width="330" height="34" />
-            <rect x="10" y="55" rx="4" ry="4" width="35" height="34" />
-            <rect x="50" y="104" rx="4" ry="4" width="330" height="34" />
-            <rect x="10" y="104" rx="4" ry="4" width="35" height="34" />
-          </ContentLoader>
+          <ul css={listStyle}>
+            {Array(5)
+              .fill(0)
+              .map((_, index) => (
+                <li css={{ width: "100%" }} key={index}>
+                  <ContentLoader
+                    speed={2}
+                    width={"100%"}
+                    height={61}
+                    backgroundColor="#f3f3f3"
+                    foregroundColor="#ecebeb"
+                  >
+                    <rect x="0" y="0" rx="7" ry="7" width="100%" height="61" />
+                  </ContentLoader>
+                </li>
+              ))}
+          </ul>
         ) : (
           <ul css={listStyle}>
             {dataContact?.phones.map((phone, index) => (
               <li
                 key={index}
-                css={{ display: "flex", gap: 12, alignItems: "center", border: "1px solid #E0E0E0", padding: "0.5rem 0.8rem", borderRadius: "10px" }}
+                css={{
+                  display: "flex",
+                  gap: 12,
+                  alignItems: "center",
+                  border: "1px solid #E0E0E0",
+                  padding: "0.5rem 0.8rem",
+                  borderRadius: "10px",
+                }}
               >
                 <span
                   css={{ opacity: 0.36, display: "flex", alignItems: "center" }}
@@ -73,7 +84,15 @@ const PhoneList = () => {
         )}
       </section>
 
-      <Outlet context={{ dataContact, loading, refetchContactDetail } satisfies ContextContactType} />
+      <Outlet
+        context={
+          {
+            dataContact,
+            loading,
+            refetchContactDetail,
+          } satisfies ContextContactType
+        }
+      />
     </>
   );
 };

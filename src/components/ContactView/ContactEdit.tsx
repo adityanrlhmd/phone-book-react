@@ -1,9 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { useNavigate, useOutletContext } from "react-router-dom";
-import { ContextContactType } from ".";
-import ModalFormContact, { HandleSubmitFormProps } from "../ModalFormContact";
 import { gql, useMutation } from "@apollo/client";
+import { useMemo } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "sonner";
+import { useLocalStorage } from "usehooks-ts";
+import { ContextContactType } from ".";
+import { ContactInterface } from "../../lib/interface/contact";
+import ModalFormContact, { HandleSubmitFormProps } from "../ModalFormContact";
 
 const UPDATE_NAME = gql`
   mutation EditContactById($id: Int!, $_set: contact_set_input) {
@@ -62,12 +65,22 @@ const ContactEdit = () => {
   const { dataContact, loading, refetchContactDetail } =
     useOutletContext<ContextContactType>();
 
+  const [favoriteContacts, setFavoriteContacts] = useLocalStorage<
+    ContactInterface[]
+  >("favoriteContacts", []);
+
   const [updateContactName, { loading: loadingUpdateName }] =
     useMutation(UPDATE_NAME);
   const [updateContactPhone, { loading: loadingUpdatePhone }] =
     useMutation(UPDATE_PHONE);
   const [updateContactAddPhone, { loading: loadingUpdateAddPhone }] =
     useMutation(UPDATE_ADD_PHONE);
+
+  const isFavorite = useMemo<boolean>(() => {
+    return (
+      favoriteContacts?.some((item) => item.id === dataContact?.id) ?? false
+    );
+  }, [dataContact, favoriteContacts]);
 
   const handleSubmit = async ({ name, phoneNumber }: HandleSubmitFormProps) => {
     if (!dataContact) {
@@ -118,6 +131,31 @@ const ContactEdit = () => {
 
     try {
       await Promise.all([updateName, ...updatePhone, ...updateAddPhone]);
+      if (isFavorite) {
+        setFavoriteContacts((prevValue: ContactInterface[]) =>
+          prevValue.map((item: ContactInterface) => {
+            if (item.id === dataContact.id) {
+              return {
+                ...item,
+                first_name: name.firstName,
+                last_name: name.lastName,
+                phones: item.phones
+                  .map((phone, index) => {
+                    if (dataUpdatePhone[index]) {
+                      return {
+                        ...phone,
+                        number: dataUpdatePhone[index].number,
+                      };
+                    }
+                    return phone;
+                  })
+                  .concat(dataAddPhone),
+              };
+            }
+            return item;
+          })
+        );
+      }
       refetchContactDetail();
       navigate(-1);
       toast.success("Contact has been updated!");
