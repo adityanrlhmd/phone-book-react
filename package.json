@@ -18,7 +18,6 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-pagination-bar": "^2.0.1",
-    "react-phone-number-input": "^3.3.7",
     "react-router-dom": "^6.18.0",
     "sonner": "^1.2.0",
     "usehooks-ts": "^2.9.1"
