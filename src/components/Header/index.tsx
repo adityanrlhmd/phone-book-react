@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { LuPlus } from "react-icons/lu";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import SearchInput from "./SearchInput";
 
 const containerStyle = css`
@@ -19,6 +19,7 @@ const containerStyle = css`
 `;
 
 const Header = () => {
+  const navigate = useNavigate();
   const isHomePage = useMatch({ path: "/" });
 
   return (
@@ -38,6 +39,8 @@ const Header = () => {
 
         {isHomePage && (
           <button
+            type="button"
+            onClick={() => navigate(`/add-contact`)}
             css={{
               alignItems: "center",
               gap: 8,

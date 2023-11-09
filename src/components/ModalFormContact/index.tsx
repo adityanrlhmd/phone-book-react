@@ -59,7 +59,12 @@ const ModalFormContact = ({
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setName((prevState) => ({ ...prevState, [name]: value }));
+    const inputChar = value.slice(-1);
+    const isValidName = /^[a-zA-Z\s]*$/;
+
+    if (isValidName.test(inputChar)) {
+      setName((prevState) => ({ ...prevState, [name]: value }));
+    }
   };
 
   const handlePhoneChange = (
@@ -172,6 +177,7 @@ const ModalFormContact = ({
                 onChange={handleNameChange}
                 name="firstName"
                 placeholder="Your First Name"
+                required
               />
 
               <FormInput
@@ -180,6 +186,7 @@ const ModalFormContact = ({
                 onChange={handleNameChange}
                 name="lastName"
                 placeholder="Your Last Name"
+                required
               />
             </div>
 
@@ -200,8 +207,11 @@ const ModalFormContact = ({
                   label={index > 0 ? `Phone ${index + 1}` : "Phone"}
                   name="number"
                   placeholder="Phone Number"
-                  isShowRemoveBtn={index !== 0}
+                  isShowRemoveBtn={
+                    index !== 0 && index + 1 > (defaultPhoneNumber?.length || 0)
+                  }
                   onClickRemoveBtn={() => removePhoneNumber(index)}
+                  required
                 />
               ))}
 

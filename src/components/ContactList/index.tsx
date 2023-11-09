@@ -13,6 +13,9 @@ import ContactCardFavorite from "./ContactCardFavorite";
 
 const containerStyle = css`
   max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
   margin: 0 auto;
   padding: 0 0 20px 0;
 `;
@@ -178,6 +181,7 @@ const ContactsList = ({
             css={{
               padding: "12px 20px",
               width: "100%",
+              marginBottom: "auto"
             }}
           >
             {!loading && (
@@ -223,25 +227,25 @@ const ContactsList = ({
                     </li>
                   ))}
             </ul>
-
-            <div
-              css={{
-                marginTop: 24,
-                marginBottom: 60,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Pagination
-                currentPage={currentPage}
-                itemsPerPage={pageSize}
-                onPageChange={onPageChange}
-                totalItems={dataContacts.allContacts.length}
-                pageNeighbours={1}
-                withProgressBar={true}
-              />
-            </div>
           </section>
+
+          <div
+            css={{
+              marginTop: 24,
+              marginBottom: 60,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={pageSize}
+              onPageChange={onPageChange}
+              totalItems={dataContacts.allContacts.length}
+              pageNeighbours={1}
+              withProgressBar={true}
+            />
+          </div>
         </main>
       )}
 

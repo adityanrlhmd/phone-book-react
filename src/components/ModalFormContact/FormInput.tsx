@@ -36,8 +36,10 @@ const FormInput = ({
   type = "name",
   isShowRemoveBtn,
   onClickRemoveBtn,
+  required = false,
 }: {
   type?: "name" | "phoneNumber";
+  required?: boolean;
   isShowRemoveBtn?: boolean;
   placeholder: string;
   value: string;
@@ -58,6 +60,7 @@ const FormInput = ({
             css={inputStyle}
             name={name}
             placeholder={placeholder}
+            required={required}
           />
         ) : (
           <>
@@ -96,6 +99,7 @@ const FormInput = ({
               css={inputStyle}
               name={name}
               placeholder={placeholder}
+              required={required}
             />
           </>
         )}

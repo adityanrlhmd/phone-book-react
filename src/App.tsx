@@ -39,7 +39,7 @@ const GET_ALL_CONTACTS = gql`
 function App() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const pageSize = 5;
+  const pageSize = 12;
 
   const offset = (currentPage - 1) * pageSize;
   const limit = pageSize;
